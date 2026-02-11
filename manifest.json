@@ -6,3 +6,12 @@
   "background_color": "#ffffff",
   "theme_color": "#2196f3"
 }
+{
+  "name": "Compteurs ESP32",
+  "short_name": "Compteurs",
+  "version": "1.0.0",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2196f3"
+}
