@@ -1,8 +1,7 @@
 {
   "name": "Compteurs ESP32",
   "short_name": "Compteurs",
-  "description": "Interface PWA pour monitoring ESP32 via ESP-NOW",
-  "version": "1.2.0",
+  "description": "Passerelle terrain ESP32 multi-nodes",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
