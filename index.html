@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Compteurs ESP32</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2196f3">
+</head>
+<body>
+
+<h1>Compteurs</h1>
+<div id="c1">0</div>
+<div id="c2">0</div>
+
+<script>
+async function update() {
+  const res = await fetch("/api");
+  const data = await res.json();
+  document.getElementById("c1").innerText = data.c1;
+  document.getElementById("c2").innerText = data.c2;
+}
+
+setInterval(update, 1000);
+update();
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
+
+</body>
+</html>
