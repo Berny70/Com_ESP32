@@ -11,17 +11,25 @@
 <h1>Compteurs</h1>
 <div id="c1">0</div>
 <div id="c2">0</div>
+  
+<div>
+APP <span id="appv"></span><br>
+GW <span id="gwv"></span><br>
+API <span id="apiv"></span>
+</div>
 
 <script>
-const APP_VERSION = "1.0.0";
+document.getElementById("appv").innerText = APP_VERSION;
 </script>
-<footer>
-Version : <span id="version"></span>
-</footer>
-<script>
-document.getElementById("version").innerText = APP_VERSION;
-</script>
+<div>
+APP <span id="appv"></span><br>
+GW <span id="gwv"></span><br>
+API <span id="apiv"></span>
+</div>
 
+<script>
+document.getElementById("appv").innerText = APP_VERSION;
+</script>
 
 <script>
 async function update() {
