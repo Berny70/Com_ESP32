@@ -1,7 +1,8 @@
-const CACHE_VERSION = "v1.0.0";
-const CACHE_NAME = "compteurs-" + CACHE_VERSION;
+const SW_VERSION = "1.2.0";
+const CACHE_NAME = "compteurs-" + SW_VERSION;
 
 self.addEventListener('install', e => {
+  self.skipWaiting();
   e.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll([
@@ -24,4 +25,6 @@ self.addEventListener('activate', e => {
       );
     })
   );
+  return self.clients.claim();
 });
+
