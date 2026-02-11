@@ -1,6 +1,9 @@
+const CACHE_VERSION = "v1.0.0";
+const CACHE_NAME = "compteurs-" + CACHE_VERSION;
+
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open('v1').then(cache => {
+    caches.open(CACHE_NAME).then(cache => {
       return cache.addAll([
         '/',
         '/manifest.json'
@@ -9,10 +12,16 @@ self.addEventListener('install', e => {
   );
 });
 
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(response => {
-      return response || fetch(e.request);
+self.addEventListener('activate', e => {
+  e.waitUntil(
+    caches.keys().then(keys => {
+      return Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      );
     })
   );
 });
