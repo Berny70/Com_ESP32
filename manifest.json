@@ -1,9 +1,24 @@
 {
   "name": "Compteurs ESP32",
   "short_name": "Compteurs",
-  "version": "1.0.0",
+  "description": "Interface PWA pour monitoring ESP32 via ESP-NOW",
+  "version": "1.2.0",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
-  "theme_color": "#2196f3"
+  "theme_color": "#1976d2",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
