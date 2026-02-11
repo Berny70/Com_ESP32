@@ -5,14 +5,15 @@
   <title>Compteurs ESP32</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#1976d2">
+  <link rel="icon" href="/icon-192.png">
 
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
-      background: #f5f5f5;
+      background: #f2f2f2;
     }
 
     h1 {
@@ -27,23 +28,20 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    .version {
-      font-size: 0.9em;
-      color: #666;
-      margin-top: 20px;
+    .online {
+      color: green;
+      font-weight: bold;
     }
 
-    .warning {
+    .offline {
       color: red;
       font-weight: bold;
     }
 
-    button {
-      padding: 8px 12px;
-      background: #1976d2;
-      color: white;
-      border: none;
-      border-radius: 5px;
+    .version {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #666;
     }
   </style>
 </head>
@@ -54,59 +52,40 @@
 
 <div id="nodes"></div>
 
-<button onclick="update()">Actualiser</button>
-
 <div class="version">
   APP <span id="appv"></span><br>
   Gateway <span id="gwv"></span><br>
-  API <span id="apiv"></span><br>
-  <span id="compat"></span>
+  API <span id="apiv"></span>
 </div>
 
 <script>
-/* ================================
-   CONFIG VERSION
-================================ */
 
-const APP_VERSION = "1.2.0";
-const REQUIRED_API_VERSION = "1.0";
+/* ========= VERSION ========= */
 
-/* ================================
-   AFFICHAGE VERSION APP
-================================ */
+const APP_VERSION = "1.0.0";
+const REQUIRED_API = "1.0";
 
 document.getElementById("appv").innerText = APP_VERSION;
 
-/* ================================
-   FETCH API
-================================ */
+/* ========= FETCH API ========= */
 
 async function update() {
+
   try {
-    const res = await fetch("/api");
-    const data = await res.json();
+    const response = await fetch("/api");
+    const data = await response.json();
 
     document.getElementById("gwv").innerText = data.gateway;
     document.getElementById("apiv").innerText = data.api;
 
-    /* Vérification compatibilité API */
-    if (data.api !== REQUIRED_API_VERSION) {
-      document.getElementById("compat").innerHTML =
-        "<span class='warning'>Incompatibilité API ! Mise à jour nécessaire.</span>";
-    } else {
-      document.getElementById("compat").innerHTML = "";
-    }
-
     displayNodes(data.nodes);
 
   } catch (err) {
-    console.log("Erreur API :", err);
+    console.log("Erreur API:", err);
   }
 }
 
-/* ================================
-   AFFICHAGE NODES DYNAMIQUE
-================================ */
+/* ========= DISPLAY ========= */
 
 function displayNodes(nodes) {
 
@@ -116,4 +95,34 @@ function displayNodes(nodes) {
   nodes.forEach(node => {
 
     const div = document.createElement("div");
-    div
+    div.className = "card";
+
+    div.innerHTML = `
+      <strong>Node ${node.id}</strong><br>
+      Compteur : ${node.compteur}<br>
+      Version : ${node.version}<br>
+      RSSI : ${node.rssi} dBm<br>
+      Etat : <span class="${node.online ? 'online' : 'offline'}">
+              ${node.online ? 'Online' : 'Offline'}
+            </span>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+/* ========= AUTO REFRESH ========= */
+
+setInterval(update, 2000);
+update();
+
+/* ========= SERVICE WORKER ========= */
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
+
+</script>
+
+</body>
+</html>
