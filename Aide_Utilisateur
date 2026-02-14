@@ -1,0 +1,515 @@
+📱 GUIDE UTILISATEUR - RELEVÉ TERRAIN
+Détecteur Frelon Asiatique - Mode Smartphone
+🎯 OBJECTIF
+
+Ce guide vous explique comment récupérer les photos de frelons capturées par votre piège, directement depuis votre smartphone, sans ordinateur.
+
+Durée de l'opération : 2-5 minutes
+📋 CE DONT VOUS AVEZ BESOIN
+
+✅ Un smartphone (iPhone ou Android)
+✅ Le détecteur installé sur le terrain
+✅ Batterie du détecteur chargée
+✅ Être à proximité du détecteur (< 20 mètres)
+
+❌ PAS BESOIN de connexion Internet
+❌ PAS BESOIN d'ordinateur
+❌ PAS BESOIN de câble
+🚀 PROCÉDURE COMPLÈTE
+ÉTAPE 1 : RÉVEILLER LE DÉTECTEUR
+<img src="bouton_illustration.png" width="300">
+
+Action :
+
+    Localisez le bouton rouge sur le boîtier
+    Appuyez 1 fois sur le bouton (pas besoin de maintenir)
+    Attendez 5 secondes
+
+Ce qui se passe :
+
+    Le détecteur sort du mode veille
+    Il active son WiFi
+    Une petite LED peut clignoter brièvement (normal)
+
+⚠️ ATTENTION : Ne pas appuyer plusieurs fois ! Une seule pression suffit.
+ÉTAPE 2 : CONNECTER VOTRE SMARTPHONE AU WIFI
+📱 Sur iPhone :
+
+    Ouvrir Réglages
+    Toucher Wi-Fi
+    Chercher le réseau : Frelon-Cam
+    Toucher dessus
+    Entrer le mot de passe : frelon2026
+    Toucher Se connecter
+
+Écran de confirmation :
+
+✓ Frelon-Cam
+  Connecté
+
+🤖 Sur Android :
+
+    Ouvrir Paramètres
+    Toucher Wi-Fi ou Connexions
+    Chercher le réseau : Frelon-Cam
+    Toucher dessus
+    Entrer le mot de passe : frelon2026
+    Toucher Connexion
+
+Notification :
+
+✓ Connecté à Frelon-Cam
+
+🔴 PROBLÈME : Le WiFi "Frelon-Cam" n'apparaît pas ?
+
+Solutions :
+
+    Ré-appuyer sur le bouton du détecteur
+        Attendez 10 secondes
+        Actualisez la liste WiFi sur le smartphone
+    Rapprochez-vous du détecteur
+        Maximum 20 mètres
+        Évitez obstacles métalliques
+    Vérifiez la batterie
+        LED rouge clignote vite = batterie faible
+        Rechargez ou changez batterie
+    Redémarrez le détecteur
+        Appuyez sur bouton RESET (petit trou)
+        Attendez 30 secondes
+        Ré-appuyez sur bouton rouge
+
+ÉTAPE 3 : OUVRIR L'INTERFACE WEB
+
+Action :
+
+    Ouvrir votre navigateur web (Safari, Chrome, Firefox...)
+    Dans la barre d'adresse, taper : 192.168.4.1
+    Appuyer sur Entrée ou Aller
+
+Raccourci : Vous pouvez enregistrer cette adresse en favori !
+
+Ce que vous devez voir :
+
+╔═══════════════════════════════╗
+║    🐝 Frelon-Cam v2.0         ║
+╠═══════════════════════════════╣
+║ Photos capturées: 12          ║
+║ Stockage: 8.5 MB / 9.9 MB     ║
+║ Boot: 45                      ║
+║ Index photo: 12               ║
+╠═══════════════════════════════╣
+║  [Actualiser]                 ║
+║  [Voir Logs]                  ║
+║  [Supprimer Photos]           ║
+╠═══════════════════════════════╣
+║        Galerie                ║
+║  [📷] [📷] [📷]               ║
+║  [📷] [📷] [📷]               ║
+╚═══════════════════════════════╝
+
+🔴 PROBLÈME : Page ne charge pas ?
+
+Vérifications :
+
+    Adresse correcte ?
+        Bien taper : 192.168.4.1
+        PAS de "www"
+        PAS de "https://"
+        Juste : 192.168.4.1
+    Bien connecté au WiFi ?
+        Vérifier icône WiFi en haut du smartphone
+        Doit afficher "Frelon-Cam"
+    Désactiver données mobiles
+        iPhone : Réglages → Cellulaire → OFF
+        Android : Paramètres → Connexions → Données mobiles → OFF
+    Désactiver VPN si actif
+        Certains VPN bloquent connexions locales
+    Essayer autre navigateur
+        Si Chrome ne fonctionne pas, essayer Firefox ou Safari
+
+ÉTAPE 4 : CONSULTER LES PHOTOS
+
+Interface galerie :
+
+┌─────────────────────────────────┐
+│         Galerie                 │
+├───────┬───────┬───────┬─────────┤
+│ [📷] │ [📷] │ [📷] │ [📷]   │
+│ 001  │ 002  │ 003  │ 004    │
+├───────┼───────┼───────┼─────────┤
+│ [📷] │ [📷] │ [📷] │ [📷]   │
+│ 005  │ 006  │ 007  │ 008    │
+└───────┴───────┴───────┴─────────┘
+
+Pour voir une photo :
+
+    Toucher une miniature
+    La photo s'ouvre en grand
+    Zoomer : pincer l'écran
+    Revenir : bouton retour du navigateur
+
+Informations utiles :
+
+    Numéro de photo : ordre de capture (001 = plus ancienne)
+    Dernières photos : en bas à droite
+    Maximum : 20 photos stockées
+
+ÉTAPE 5 : TÉLÉCHARGER LES PHOTOS
+Méthode 1 : Une par une (recommandé)
+
+Sur iPhone :
+
+    Toucher une photo pour l'agrandir
+    Appui long sur la photo
+    Toucher Enregistrer l'image
+    Photo sauvegardée dans Photos
+
+Sur Android :
+
+    Toucher une photo pour l'agrandir
+    Appui long sur la photo
+    Toucher Télécharger l'image
+    Photo dans Galerie ou Téléchargements
+
+Méthode 2 : Capture d'écran rapide
+
+Pour documenter rapidement :
+
+    Afficher la galerie
+    Faire une capture d'écran :
+        iPhone : Bouton latéral + Volume haut
+        Android : Bouton Power + Volume bas
+    Répéter pour chaque page de galerie
+
+ÉTAPE 6 : ANALYSER / PARTAGER
+
+Options après téléchargement :
+
+📧 Envoyer par email
+
+1. Ouvrir Photos/Galerie
+2. Sélectionner photos
+3. Partager → Email
+4. Envoyer à votre adresse
+
+💬 Partager sur WhatsApp
+
+1. Ouvrir Photos/Galerie
+2. Sélectionner photos
+3. Partager → WhatsApp
+4. Choisir contact
+
+☁️ Sauvegarder dans le cloud
+
+1. Ouvrir Photos/Galerie
+2. Sélectionner photos
+3. Partager → Google Drive / iCloud
+
+🔍 Identifier le frelon
+
+    Zoomer sur la photo
+    Vérifier caractéristiques :
+        Pattes jaunes = Frelon asiatique ✓
+        4ème segment abdominal orange
+        Face orange
+
+ÉTAPE 7 : NETTOYER (OPTIONNEL)
+
+Si vous voulez libérer de l'espace :
+
+    Sur la page d'accueil, toucher [Supprimer Photos]
+    Confirmer : "Supprimer toutes les photos ?"
+    Toucher OK
+    Toutes les photos sont effacées du détecteur
+
+⚠️ ATTENTION :
+
+    Action irréversible
+    Photos supprimées définitivement
+    Pensez à télécharger avant !
+
+Alternative : Laissez les photos
+
+    Le système garde max 20 photos
+    Anciennes supprimées automatiquement
+    Pas besoin de nettoyer manuellement
+
+ÉTAPE 8 : DÉCONNECTER
+
+Méthode 1 : Automatique (recommandé)
+
+    Attendez 1 minute sans rien faire
+    Le détecteur se met automatiquement en veille
+    WiFi s'éteint tout seul
+    Retour en mode capture
+
+Méthode 2 : Manuelle
+
+    Réglages smartphone → WiFi
+    Déconnecter de "Frelon-Cam"
+    Le détecteur détecte la déconnexion
+    Se met en veille automatiquement
+
+Méthode 3 : Bouton RESET
+
+    Appuyer brièvement sur bouton RESET (petit trou)
+    Détecteur redémarre
+    Retour en mode veille immédiat
+
+⏱️ RÉSUMÉ RAPIDE (MODE EXPRESS)
+
+Pour les utilisateurs habitués :
+
+1. BOUTON ROUGE → 1 pression
+2. SMARTPHONE → WiFi "Frelon-Cam" (mdp: frelon2026)
+3. NAVIGATEUR → 192.168.4.1
+4. GALERIE → Télécharger photos
+5. ATTENDRE → 1 min (déconnexion auto)
+
+Temps total : 2 minutes
+📊 COMPRENDRE LES STATISTIQUES
+
+╔════════════════════════════════╗
+║ Photos capturées: 12           ║ ← Nombre total capturé
+║ Stockage: 8.5 MB / 9.9 MB      ║ ← Espace utilisé / total
+║ Boot: 45                       ║ ← Nombre de réveils
+║ Index photo: 12                ║ ← Prochain numéro photo
+╚════════════════════════════════╝
+
+Interprétation :
+Valeur	Signification
+Photos capturées	Photos actuellement stockées (max 20)
+Stockage	Mémoire utilisée (si proche de 9.9 MB = presque plein)
+Boot	Compteur de démarrages (normal si élevé = beaucoup de détections)
+Index photo	Numéro de la prochaine photo
+🔍 CONSULTER LES LOGS (AVANCÉ)
+
+Pour voir l'historique système :
+
+    Page d'accueil → Toucher [Voir Logs]
+    Écran noir avec texte vert s'affiche
+    Logs affichés dans l'ordre chronologique
+
+Exemple de logs :
+
+[Boot:1 Photo:0] Premier boot
+[Boot:2 Photo:0] Reveil PIR
+[Boot:2 Photo:1] Photo #0 OK (48532 bytes)
+[Boot:3 Photo:1] Reveil BOUTON
+[Boot:3 Photo:1] WiFi AP active
+[Boot:4 Photo:1] Reveil PIR
+[Boot:4 Photo:2] Photo #1 OK (51203 bytes)
+
+Comprendre les logs :
+
+    Boot:X = Numéro de démarrage
+    Photo:Y = Nombre de photos stockées à ce moment
+    Reveil PIR = Détection mouvement
+    Reveil BOUTON = Vous avez appuyé sur le bouton
+    Photo #X OK = Photo capturée avec succès
+
+Utilité :
+
+    Voir combien de détections par jour
+    Vérifier bon fonctionnement
+    Diagnostiquer problèmes éventuels
+
+⚠️ MESSAGES D'ERREUR POSSIBLES
+"Aucune photo"
+
+Signification : Pas encore de détection
+
+Normal si :
+
+    Détecteur vient d'être installé
+    Pas de passage de frelon récent
+    Vous avez supprimé les photos
+
+Action : Attendre détections futures
+"Chargement..." qui ne finit jamais
+
+Cause : Problème connexion
+
+Solutions :
+
+    Actualiser la page (tirer vers le bas)
+    Vérifier WiFi connecté
+    Réessayer l'adresse 192.168.4.1
+    Redémarrer navigateur
+    Ré-appuyer sur bouton détecteur
+
+Photos ne s'affichent pas (cases vides)
+
+Cause : Connexion trop lente ou photos corrompues
+
+Solutions :
+
+    Se rapprocher du détecteur
+    Attendre 30 secondes
+    Actualiser la page
+    Consulter les logs pour erreurs
+
+💡 ASTUCES ET CONSEILS
+🎯 Meilleur moment pour faire la relève
+
+    Tôt le matin : Moins d'activité des frelons
+    Soir : Détecteur moins sollicité
+    Éviter : Milieu de journée (beaucoup de détections = WiFi coupé souvent)
+
+📅 Fréquence recommandée
+
+    Début de saison : 1 fois/semaine (vérifier bon fonctionnement)
+    Haute saison : 2-3 fois/semaine (éviter saturation)
+    Fin de saison : 1 fois/2 semaines
+
+🔋 Économiser la batterie
+
+    Téléchargez rapidement : Ne pas laisser WiFi actif 10 minutes
+    Supprimez après téléchargement : Libère espace + réduit temps traitement
+    Une seule connexion : Ne pas connecter plusieurs smartphones simultanément
+
+📸 Identifier un vrai frelon asiatique
+
+✅ Critères visuels :
+
+    Corps noir/brun très foncé
+    Pattes jaunes (extrémités)
+    Face orange/jaune
+    4ème segment abdominal orange
+    Taille : 17-32 mm
+
+❌ Ne pas confondre avec :
+
+    Frelon européen : plus gros, corps jaune/roux
+    Guêpe : plus petite, taille fine
+    Abeille : poilue, plus trapue
+
+📱 Créer un raccourci sur l'écran d'accueil
+
+iPhone :
+
+    Ouvrir Safari → 192.168.4.1
+    Toucher icône Partage (carré avec flèche)
+    "Sur l'écran d'accueil"
+    Nommer "Frelon-Cam"
+
+Android :
+
+    Ouvrir Chrome → 192.168.4.1
+    Menu (3 points) → "Ajouter à l'écran d'accueil"
+    Nommer "Frelon-Cam"
+
+Avantage : Accès direct en 1 clic
+📞 AIDE RAPIDE - TABLEAU DE DÉPANNAGE
+Problème	Solution rapide
+WiFi invisible	Ré-appuyer bouton rouge + attendre 10s
+Page ne charge pas	Vérifier adresse: 192.168.4.1 (sans www)
+Photos ne s'affichent pas	Actualiser page + attendre 30s
+Connexion se coupe	Normal après 1 min inactivité
+Pas de photos	Normal si pas de détection récente
+WiFi demande mot de passe	frelon2026 (tout en minuscules)
+Photos floues	Normal, netteté variable selon conditions
+🎬 VIDÉO TUTORIEL (SIMULATION)
+
+SCÉNARIO COMPLET EN IMAGES:
+
+┌─────────────────────────────────────┐
+│  1. APPROCHE DU PIÈGE               │
+│     [Photo du piège sur terrain]    │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│  2. APPUI SUR BOUTON ROUGE          │
+│     [Photo doigt sur bouton]        │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│  3. OUVERTURE WIFI SMARTPHONE       │
+│     [Capture écran liste WiFi]      │
+│     → Frelon-Cam visible            │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│  4. CONNEXION AVEC MOT DE PASSE     │
+│     [Capture écran mdp: frelon2026] │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│  5. NAVIGATEUR → 192.168.4.1        │
+│     [Capture écran barre adresse]   │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│  6. INTERFACE CHARGÉE               │
+│     [Capture galerie photos]        │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│  7. TÉLÉCHARGEMENT PHOTO            │
+│     [Appui long → Enregistrer]      │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│  8. FIN - DÉCONNEXION AUTO          │
+│     [Attendre 1 minute]             │
+└─────────────────────────────────────┘
+
+✅ CHECKLIST AVANT DE PARTIR
+
+Avant de quitter le site, vérifiez :
+
+    Photos bien téléchargées dans smartphone
+    Photos visibles dans Galerie/Photos
+    Batterie détecteur correcte (si indicateur visible)
+    Piège toujours stable et bien positionné
+    Pas d'obstacle devant caméra
+    Détecteur est retourné en veille (WiFi éteint)
+
+Déconnexion automatique confirmée quand :
+
+    WiFi "Frelon-Cam" a disparu de la liste
+    Votre smartphone s'est reconnecté à votre réseau habituel
+
+🎯 RÉSUMÉ VISUEL - MODE SIMPLIFIÉ
+
+╔═══════════════════════════════════════════════╗
+║                                               ║
+║   1️⃣  Bouton Rouge → 1 CLIC                  ║
+║                                               ║
+║   2️⃣  WiFi → "Frelon-Cam"                    ║
+║        Mot de passe: frelon2026              ║
+║                                               ║
+║   3️⃣  Navigateur → 192.168.4.1               ║
+║                                               ║
+║   4️⃣  Télécharger photos (appui long)        ║
+║                                               ║
+║   5️⃣  Attendre 1 min → Fin automatique       ║
+║                                               ║
+╚═══════════════════════════════════════════════╝
+
+C'est aussi simple que ça ! 🎉
+📖 LEXIQUE
+Terme	Explication simple
+WiFi AP	Réseau WiFi créé par le détecteur
+Deep Sleep	Mode veille ultra-économe
+Boot	Démarrage du système
+GPIO	Port de connexion électronique
+FIFO	Premier entré, premier sorti (anciennes photos supprimées)
+FFat	Système de stockage des photos
+Logs	Journal des événements système
+🆘 CONTACT / SUPPORT
+
+En cas de problème persistant :
+
+    Noter le message d'erreur exact
+    Faire capture d'écran
+    Consulter les logs (bouton "Voir Logs")
+    Contacter votre fournisseur/installateur avec :
+        Photos de l'erreur
+        Copie des logs
+        Description précise du problème
+
+🎯 Bon piégeage de frelons asiatiques !
+
+Document créé pour utilisateurs non-techniques
+Version 2.0 - Décembre 2024
