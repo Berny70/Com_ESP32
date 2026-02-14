@@ -1,0 +1,725 @@
+🔧 GUIDE DE DÉPANNAGE COMPLET
+ESP32-S3 CAM - Détecteur Frelon Asiatique
+
+📑 TABLE DES MATIÈRES
+
+Problèmes de compilation
+Problèmes de téléversement
+Problèmes au démarrage
+Problèmes caméra
+Problèmes de stockage (FFat)
+Problèmes WiFi
+Problèmes deep sleep
+Problèmes batterie
+Diagnostics avancés
+FAQ
+
+
+1. PROBLÈMES DE COMPILATION
+❌ Erreur: "esp_camera.h: No such file or directory"
+CAUSE: Bibliothèque ESP32 non installée ou mauvaise version
+SOLUTION:
+1. Arduino IDE → Outils → Type de carte → Gestionnaire de cartes
+2. Chercher "ESP32"
+3. Installer "ESP32 by Espressif Systems" version 3.0.0 ou supérieure
+4. Redémarrer Arduino IDE
+
+❌ Erreur: "FRAMESIZE_VGA was not declared"
+CAUSE: Version ESP32 trop ancienne
+SOLUTION:
+1. Gestionnaire de cartes
+2. Mettre à jour "ESP32" vers dernière version (≥ 3.0.0)
+
+❌ Erreur: "FFat.h: No such file or directory"
+CAUSE: Carte mal sélectionnée
+SOLUTION:
+Outils → Type de carte → ESP32S3 Dev Module
+(PAS "ESP32 Dev Module")
+
+❌ Erreur: "WebServer.h: No such file or directory"
+CAUSE: Conflit avec bibliothèque externe
+SOLUTION:
+1. Supprimer toute bibliothèque WebServer externe
+2. Utiliser uniquement celle fournie par ESP32
+3. Croquis → Inclure une bibliothèque → Gérer les bibliothèques
+4. Désinstaller "WebServer" si présent
+
+❌ Erreur: Sketch trop grand
+Le croquis utilise 1900000 octets (142%) de l'espace de stockage
+CAUSE: Partition APP trop petite
+SOLUTION:
+Outils → Partition Scheme → 16M Flash (3MB APP/9.9MB FATFS)
+
+2. PROBLÈMES DE TÉLÉVERSEMENT
+❌ "Failed to connect to ESP32"
+CAUSE 1: Port COM incorrect
+SOLUTION:
+1. Vérifier Gestionnaire de périphériques (Windows)
+2. Outils → Port → Sélectionner bon port COM
+3. Débrancher/rebrancher USB
+CAUSE 2: Drivers manquants
+SOLUTION:
+Windows:
+1. Télécharger CP210x ou CH340 drivers
+2. https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers
+
+Mac/Linux:
+Généralement détecté automatiquement
+CAUSE 3: ESP32 en deep sleep
+SOLUTION:
+1. Appuyer et MAINTENIR bouton BOOT
+2. Cliquer "Téléverser"
+3. Relâcher BOOT après "Connecting..."
+
+❌ "Timed out waiting for packet header"
+SOLUTION:
+1. Réduire Upload Speed:
+   Outils → Upload Speed → 115200 (au lieu de 921600)
+
+2. Essayer avec bouton BOOT:
+   - Maintenir BOOT enfoncé
+   - Appuyer brièvement RESET
+   - Relâcher BOOT
+   - Cliquer Téléverser
+
+❌ "MD5 of file does not match"
+SOLUTION:
+1. Câble USB défectueux → Changer câble
+2. Port USB faible → Essayer autre port USB
+3. Upload Speed → Réduire à 115200
+
+3. PROBLÈMES AU DÉMARRAGE
+❌ LED clignote rapidement (erreur partition)
+SYMPTÔME: Moniteur série affiche "ERREUR PARTITION"
+SOLUTION:
+1. Outils → Partition Scheme → 16M Flash (3MB APP/9.9MB FATFS)
+2. Re-téléverser le code
+3. Si persiste: Effacer flash complètement
+   Outils → Erase Flash → All Flash Contents
+   Puis re-téléverser
+
+❌ "Brownout detector was triggered"
+SYMPTÔME: Redémarrage en boucle
+CAUSE: Alimentation insuffisante
+SOLUTION:
+1. Vérifier alimentation ≥ 500mA (idéal: 1A)
+2. Ajouter condensateur 100-470µF sur VCC
+3. Câble USB court et de qualité
+4. Ne PAS alimenter par pin 3.3V (utiliser 5V)
+
+❌ Moniteur série affiche caractères illisibles
+CAUSE: Mauvais baud rate
+SOLUTION:
+Moniteur série → Sélectionner 115200 baud
+(en bas à droite de la fenêtre)
+
+❌ Rien ne s'affiche au moniteur série
+SOLUTION:
+1. Vérifier port COM correct
+2. Outils → USB CDC On Boot → Enabled
+3. Re-téléverser le code
+4. Appuyer bouton RESET sur ESP32
+
+4. PROBLÈMES CAMÉRA
+❌ "Erreur camera: 0x105"
+CAUSE: Caméra non détectée (câble ruban)
+SOLUTION:
+1. Éteindre ESP32
+2. Vérifier connexion câble ruban caméra:
+   - Bien inséré des DEUX côtés
+   - Contacts dorés vers le BAS
+   - Pas de pli dans le câble
+3. Nettoyer contacts avec alcool isopropylique
+4. Redémarrer
+
+❌ "Erreur camera: 0x20001"
+CAUSE: PSRAM non détecté
+SOLUTION:
+1. Vérifier configuration:
+   Outils → PSRAM → OPI PSRAM
+
+2. Si erreur persiste:
+   Le code se mettra automatiquement en mode dégradé (QVGA)
+
+❌ "Echec capture" répété
+SYMPTÔMES: Photos noires ou erreur capture
+DIAGNOSTIC:
+arduino// Ajouter dans modeCapturePhoto() après initCamera():
+delay(2000);  // Laisser caméra s'initialiser
+Serial.println("Test exposition...");
+SOLUTIONS:
+1. Caméra mal initialisée
+cpp// Ajouter delay avant capture
+delay(1000);
+fb = esp_camera_fb_get();
+```
+
+**2. Caméra défectueuse**
+```
+Tester avec exemple de base:
+Fichier → Exemples → ESP32 → Camera → CameraWebServer
+3. Problème exposition
+cpp// Dans initCamera(), après sensor_t * s = ...
+s->set_brightness(s, 1);     // Augmenter luminosité
+s->set_exposure_ctrl(s, 0);  // Désactiver auto-exposition
+s->set_aec_value(s, 300);    // Exposition manuelle
+
+❌ Photos floues
+SOLUTION:
+cpp// Ajuster focus physique de la caméra
+// Tourner délicatement la lentille
+
+// OU augmenter qualité:
+#define JPEG_QUALITY 8  // Au lieu de 12
+```
+
+---
+
+## 5. PROBLÈMES DE STOCKAGE (FFat)
+
+### ❌ "Échec montage FFat"
+
+**DIAGNOSTIC:**
+```
+Ouvrir moniteur série au boot
+Chercher message "FFat: X MB total"
+```
+
+**SOLUTION 1:** Formatage nécessaire
+```
+Le code formate automatiquement au 1er boot
+Attendre 30 secondes
+```
+
+**SOLUTION 2:** Partition incorrecte
+```
+1. Outils → Partition Scheme → 16M Flash (3MB APP/9.9MB FATFS)
+2. Outils → Erase Flash → All Flash Contents
+3. Re-téléverser
+
+❌ "ERREUR ouverture fichier"
+CAUSE: FFat plein ou corrompu
+SOLUTION:
+cpp// Via interface web:
+http://192.168.4.1
+→ Cliquer "Supprimer Photos"
+
+// OU reformater:
+1. Téléverser ce code temporaire:
+void setup() {
+  Serial.begin(115200);
+  FFat.format();
+  Serial.println("Format OK");
+}
+
+2. Puis re-téléverser le code principal
+```
+
+---
+
+### ❌ Photos disparaissent après redémarrage
+
+**CAUSE:** FFat non correctement fermé
+
+**VÉRIFICATION:**
+```
+Le code appelle bien FFat.end() ?
+Oui ✅ → Corruption possible
+SOLUTION:
+cpp// Reformater FFat
+FFat.format();
+```
+
+---
+
+## 6. PROBLÈMES WiFi
+
+### ❌ WiFi "Frelon-Cam" n'apparaît pas
+
+**DIAGNOSTIC:**
+```
+Moniteur série doit afficher:
+"WiFi: Frelon-Cam"
+"IP: http://192.168.4.1"
+```
+
+**SOLUTION 1:** Deep sleep trop rapide
+```
+Vérifier que BOUTON a bien déclenché le réveil
+(pas PIR)
+```
+
+**SOLUTION 2:** Erreur FFat bloque WiFi
+```
+Moniteur série: chercher "ERREUR FFat"
+→ Résoudre problème FFat d'abord
+```
+
+**SOLUTION 3:** Timeout dépassé
+```
+Le WiFi s'éteint après 1 min inactivité
+Ré-appuyer sur BOUTON
+```
+
+---
+
+### ❌ Impossible de se connecter au WiFi
+
+**ERREUR:** "Mot de passe incorrect" sur smartphone
+
+**SOLUTION:**
+```
+Mot de passe: frelon2026
+(tout en minuscules, pas d'espaces)
+
+Si modifié dans le code:
+Vérifier #define AP_PASSWORD
+Minimum 8 caractères requis
+```
+
+---
+
+### ❌ Connecté au WiFi mais pas d'accès web
+
+**DIAGNOSTIC:**
+```
+1. Vérifier IP obtenue sur smartphone:
+   Paramètres WiFi → Frelon-Cam → Infos
+   
+2. IP doit être 192.168.4.xxx
+```
+
+**SOLUTION:**
+```
+Navigateur → http://192.168.4.1
+(PAS https://)
+
+Si échec:
+- Désactiver données mobiles
+- Désactiver VPN
+- Essayer navigateur différent (Chrome, Firefox)
+```
+
+---
+
+### ❌ Page web affiche "Chargement..." indéfiniment
+
+**CAUSE:** JavaScript bloqué ou problème serveur
+
+**SOLUTION:**
+```
+1. Ouvrir Console développeur (F12)
+2. Chercher erreurs JavaScript
+
+3. Vérifier route /list:
+   http://192.168.4.1/list
+   Doit afficher JSON
+
+4. Si erreur 500:
+   → Problème FFat
+   → Voir section FFat ci-dessus
+```
+
+---
+
+## 7. PROBLÈMES DEEP SLEEP
+
+### ❌ ESP32 ne se met pas en deep sleep
+
+**SYMPTÔME:** Reste actif indéfiniment
+
+**DIAGNOSTIC:**
+```
+Moniteur série doit afficher:
+"Configuration Deep Sleep..."
+"Entree en Deep Sleep..."
+```
+
+**CAUSE 1:** Boucle infinie avant sleep
+```
+Chercher while(1) ou erreur bloquante dans logs
+```
+
+**CAUSE 2:** Serveur web actif
+```
+Appuyer sur BOUTON active WiFi
+→ Normal qu'il reste actif
+→ Timeout après 1 min inactivité
+```
+
+---
+
+### ❌ Ne se réveille pas sur PIR
+
+**DIAGNOSTIC:**
+```
+1. Tester PIR séparément:
+   - Alimenter PIR en 3.3V
+   - LED sur PIR doit s'allumer sur mouvement
+   
+2. Vérifier GPIO:
+   PIR OUT → GPIO 21
+```
+
+**SOLUTION:**
+```
+1. Vérifier câblage:
+   PIR VCC → ESP32 3.3V
+   PIR GND → ESP32 GND
+   PIR OUT → ESP32 GPIO 21
+
+2. Tester PIR:
+   pinMode(21, INPUT);
+   Serial.println(digitalRead(21));
+   // Doit afficher 1 quand mouvement
+```
+
+---
+
+### ❌ Ne se réveille pas sur BOUTON
+
+**DIAGNOSTIC:**
+```
+1. Tester bouton:
+   Multimètre en mode continuité
+   Appuyer → doit sonner
+
+2. Vérifier GPIO:
+   Bouton → GPIO 3
+```
+
+**SOLUTION:**
+```
+Câblage bouton:
+GPIO 3 ──┬── Bouton (NO) ── 3.3V
+         │
+         └── Résistance 10kΩ ── GND
+
+OU plus simple:
+GPIO 3 ── Bouton (NO) ── 3.3V
+(pull-down interne activé dans le code)
+```
+
+---
+
+### ❌ Se réveille constamment (boucle)
+
+**CAUSE:** GPIO PIR reste HIGH
+
+**SOLUTION:**
+```
+1. Ajuster sensibilité PIR (potentiomètre sur module)
+2. Ajouter délai avant sleep:
+
+void configurerDeepSleep() {
+  delay(5000);  // Attendre 5s que PIR redescende
+  // ... reste du code
+}
+
+8. PROBLÈMES BATTERIE
+❌ "BATTERIE CRITIQUE" mais batterie chargée
+CAUSE: Diviseur de tension incorrect ou ADC mal câblé
+DIAGNOSTIC:
+cpp// Ajouter dans verifierBatterie():
+Serial.printf("ADC raw: %d\n", adc);
+Serial.printf("Voltage calcule: %.2fV\n", voltage);
+
+// Mesurer batterie avec multimètre
+// Comparer avec valeur affichée
+SOLUTION:
+cpp// Ajuster formule selon votre diviseur:
+// Si diviseur 1:2 (2x 10kΩ):
+float voltage = (adc / 4095.0) * 3.3 * 2.0;
+
+// Si diviseur 1:3 (20kΩ + 10kΩ):
+float voltage = (adc / 4095.0) * 3.3 * 3.0;
+
+// Si pas de diviseur (batterie 3.7V directe):
+float voltage = (adc / 4095.0) * 3.3;
+```
+
+---
+
+### ❌ Batterie se décharge trop vite
+
+**DIAGNOSTIC:**
+```
+Consommation attendue:
+- Deep sleep: ~10µA
+- Capture photo: ~200mA pendant 2-3s
+- WiFi actif: ~150mA
+
+Durée batterie théorique (LiPo 2000mAh):
+- 10 captures/jour: ~2-3 semaines
+- 50 captures/jour: ~1 semaine
+```
+
+**SOLUTIONS:**
+
+**1. Vérifier pas de réveil constant**
+```
+Moniteur série: compter boots
+Si > 100/jour → Problème PIR (trop sensible)
+2. Vérifier LED éteinte
+cpppinMode(LED_BUILTIN, OUTPUT);
+digitalWrite(LED_BUILTIN, LOW);  // Doit être dans setup()
+3. Réduire timeout WiFi
+cpp#define WEB_TIMEOUT_INACTIVITY_MS 30000  // 30s au lieu de 60s
+```
+
+---
+
+### ❌ Batterie ne charge pas (panneau solaire)
+
+**DIAGNOSTIC:**
+```
+1. Tester panneau avec multimètre:
+   Lumière directe → doit donner ~5V
+
+2. Tester TP4056:
+   LED rouge = en charge
+   LED verte = chargé
+```
+
+**SOLUTION:**
+```
+Câblage TP4056:
+Panneau 5V+ → TP4056 IN+
+Panneau GND → TP4056 IN-
+TP4056 OUT+ → ESP32 5V
+TP4056 OUT- → ESP32 GND
+TP4056 BAT+ → LiPo +
+TP4056 BAT- → LiPo -
+
+9. DIAGNOSTICS AVANCÉS
+🔍 MODE DEBUG COMPLET
+Activer logs détaillés:
+cppvoid setup() {
+  Serial.begin(115200);
+  Serial.setDebugOutput(true);  // ← AJOUTER
+  esp_log_level_set("*", ESP_LOG_VERBOSE);  // ← AJOUTER
+  
+  // ... reste du code
+}
+
+🔍 TESTER CHAQUE COMPOSANT ISOLÉMENT
+Test 1: Caméra seule
+cppvoid setup() {
+  Serial.begin(115200);
+  if (initCamera()) {
+    Serial.println("Camera OK");
+    fb = esp_camera_fb_get();
+    if (fb) {
+      Serial.printf("Photo OK: %d bytes\n", fb->len);
+      esp_camera_fb_return(fb);
+    }
+  }
+}
+void loop() {}
+Test 2: FFat seul
+cppvoid setup() {
+  Serial.begin(115200);
+  if (FFat.begin(false)) {
+    Serial.printf("FFat OK: %d MB\n", FFat.totalBytes()/(1024*1024));
+    File test = FFat.open("/test.txt", "w");
+    test.println("Test");
+    test.close();
+    Serial.println("Ecriture OK");
+  }
+}
+void loop() {}
+Test 3: WiFi seul
+cppvoid setup() {
+  Serial.begin(115200);
+  WiFi.softAP("Test-AP", "12345678");
+  Serial.println(WiFi.softAPIP());
+}
+void loop() {}
+
+🔍 VÉRIFIER MÉMOIRE DISPONIBLE
+cppvoid afficherMemoire() {
+  Serial.printf("Heap libre: %d bytes\n", ESP.getFreeHeap());
+  Serial.printf("PSRAM libre: %d bytes\n", ESP.getFreePsram());
+  Serial.printf("Heap min: %d bytes\n", ESP.getMinFreeHeap());
+}
+
+// Appeler à différents moments:
+// - Au boot
+// - Après init caméra
+// - Après capture photo
+```
+
+---
+
+### 🔍 ANALYSER LES LOGS SYSTÈME
+
+**Via interface web:**
+```
+http://192.168.4.1/logs
+```
+
+**Chercher patterns:**
+```
+[Boot:X Photo:Y] ERREUR ...
+→ Si X augmente vite: reboot loops
+→ Si Y n'augmente pas: photos non sauvegardées
+```
+
+---
+
+## 10. FAQ
+
+### ❓ Combien de photos peut stocker le système ?
+
+**Réponse:**
+```
+Partition: 9.9 MB
+Photo VGA moyenne: ~50 KB
+Capacité théorique: ~200 photos
+
+Limite configurée: 20 photos (FIFO)
+→ Plus ancienne supprimée automatiquement
+Modifier limite:
+cpp#define MAX_PHOTOS 50  // Au lieu de 20
+
+❓ Comment récupérer les photos sans smartphone ?
+Option 1: Carte SD (nécessite modification hardware)
+Option 2: USB direct
+cpp// Ajouter au début de setup():
+#include <USB.h>
+#include <USBMSD.h>
+
+// Exposer FFat comme clé USB
+USBMSD.begin();
+Option 3: Serveur FTP (à implémenter)
+
+❓ Peut-on avoir plusieurs ESP32 avec même WiFi ?
+Réponse: Non, conflit SSID
+Solution:
+cpp// Personnaliser SSID par device:
+#define AP_SSID "Frelon-Cam-01"  // Device 1
+#define AP_SSID "Frelon-Cam-02"  // Device 2
+```
+
+---
+
+### ❓ Comment mettre à jour le code sans tout perdre ?
+
+**Photos sauvegardées:**
+```
+1. Activer mode relève (bouton)
+2. Télécharger toutes les photos
+3. Téléverser nouveau code
+4. Photos seront perdues
+5. Re-uploader si besoin
+```
+
+**Préserver FFat:**
+```
+Impossible avec OTA standard
+Les photos seront perdues à chaque flash
+```
+
+---
+
+### ❓ PIR déclenche trop souvent (fausses alarmes)
+
+**Solutions:**
+```
+1. Ajuster sensibilité PIR (potentiomètre)
+2. Ajuster portée PIR (potentiomètre)
+3. Orienter PIR loin des branches/feuilles
+4. Ajouter filtre logiciel:
+
+void modeCapturePhoto() {
+  delay(500);  // Attendre stabilisation
+  if (digitalRead(GPIO_PIR) == LOW) {
+    // Fausse alarme, retour sleep
+    return;
+  }
+  // ... suite capture
+}
+```
+
+---
+
+### ❓ Interface web lente ou photos ne chargent pas
+
+**Causes:**
+```
+1. Signal WiFi faible
+   → Se rapprocher de l'ESP32
+
+2. Trop de photos
+   → Supprimer anciennes
+
+3. Photo trop grosse
+   → Réduire qualité:
+   #define JPEG_QUALITY 15  // Au lieu de 12
+```
+
+---
+
+### ❓ Comment savoir si le système fonctionne sans moniteur série ?
+
+**Indicateurs:**
+```
+1. Vérifier logs via WiFi:
+   http://192.168.4.1/logs
+   
+2. Compteur photoIndex augmente
+   
+3. Fichiers photos présents
+
+4. Ajouter LED de status (optionnel):
+cpp#define LED_STATUS 2
+
+void modeCapturePhoto() {
+  // Clignoter 3x = capture réussie
+  for(int i=0; i<3; i++) {
+    digitalWrite(LED_STATUS, HIGH);
+    delay(200);
+    digitalWrite(LED_STATUS, LOW);
+    delay(200);
+  }
+}
+```
+
+---
+
+## 🆘 DERNIER RECOURS : RESET COMPLET
+
+**Si rien ne fonctionne:**
+```
+1. Outils → Erase Flash → All Flash Contents
+2. Téléverser code
+3. Attendre 1 minute (formatage FFat)
+4. Appuyer RESET
+5. Vérifier moniteur série
+
+📞 CHECKLIST DE DÉPANNAGE RAPIDE
+Avant de chercher le problème, vérifier:
+
+ Port COM correct
+ Carte: ESP32S3 Dev Module
+ Partition: 16M Flash (3MB APP/9.9MB FATFS)
+ PSRAM: OPI PSRAM
+ USB CDC On Boot: Enabled
+ Moniteur série: 115200 baud
+ Câble USB de qualité (données, pas que charge)
+ Alimentation ≥ 500mA
+ Câble ruban caméra bien connecté
+ GPIO pas en conflit
+ Batterie chargée (si utilisée)
+
+
+📊 TABLEAU DE DIAGNOSTIC RAPIDE
+SymptômeCause probablePageNe compile pasBibliothèque/carte§1Ne téléverse pasPort/drivers§2LED clignote vitePartition§3Photos noiresCaméra§4Pas de stockageFFat§5WiFi invisibleDeep sleep/erreur§6Ne se réveille pasGPIO/câblage§7Batterie vide viteConso/PIR§8
+
+💡 CONSEILS FINAUX
+
+Toujours vérifier le moniteur série - 90% des problèmes y sont visibles
+Tester composants isolément - Caméra, FFat, WiFi séparément
+Logs sont vos amis - Consulter /logs via interface web
+Ne pas hésiter à reformater FFat - Résout beaucoup de bugs
+Vérifier alimentation - Cause #1 de comportements bizarres
