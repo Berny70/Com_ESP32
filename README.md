@@ -1,5 +1,8 @@
 # Com_ESP32
 # Détecteur Frelon Asiatique ESP32-S3 CAM - comm avec smartphone 
+L'idée est de relever avec un smartphone des pots à mèche simplement équipés d'un ESP32CAM et d'un déclencheur (interrupteur en U)
+
+
 ## Guide d'Installation et d'Utilisation
 
 ### 📋 MATÉRIEL REQUIS
